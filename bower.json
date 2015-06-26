@@ -17,6 +17,7 @@
   "dependencies": {
     "angular-ui-router": "~0.2.15",
     "angular": "~1.4.1",
-    "materialize": "~0.96.1"
+    "materialize": "~0.96.1",
+    "angular-resource": "~1.4.1"
   }
 }

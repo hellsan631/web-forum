@@ -53,9 +53,49 @@ module.exports = function(app) {
       }
     ],
     function(err, results){
-      console.log(results);
+
+      whiplash.topics.create(topic, function(err, response){
+        topic = response;
+
+        async.series([
+          function(callback){
+            createPost(topic, whiplash, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", callback);
+          },
+          function(callback){
+            createPost(topic, drevan, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", callback);
+          },
+          function(callback){
+            createPost(topic, whiplash, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", callback);
+          },
+          function(callback){
+            createPost(topic, whiplash, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", callback);
+          },
+          function(callback){
+            createPost(topic, drevan, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", callback);
+          }
+        ],
+        function(e, r){
+          if(e)
+            console.log(e);
+        });
+
+      });
     });
 
+  }
+
+  function createPost(topic, user, content, callback){
+    var post = {
+      content: content,
+      personId: user.id
+    };
+
+    topic.posts.create(post, function(err, response){
+      if(err)
+        callback(err);
+      else
+        callback(null, response);
+    });
   }
 
 };

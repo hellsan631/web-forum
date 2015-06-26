@@ -1,6 +1,8 @@
 angular
   .module("web-forum", [
-    'ui.router'
+    'ui.router',
+    'ngResource',
+    'lbServices'
   ])
   .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
