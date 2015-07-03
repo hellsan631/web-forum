@@ -7,20 +7,78 @@
   </head>
   <body>
 
-    <nav ng-controller="NavController">
-      <div class="nav-wrapper red darken-2">
-        <a class="brand-logo">{{ name }}</a>
-        <a data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        <ul class="right hide-on-med-and-down">
-          <li><a class="waves-effect waves-light">Login</a></li>
-          <li><a class="waves-effect waves-light">Register</a></li>
-        </ul>
-        <ul class="side-nav" id="mobile-demo">
-          <li><a class="waves-effect waves-light">Login</a></li>
-          <li><a class="waves-effect waves-light">Register</a></li>
-        </ul>
+    <div ng-controller="NavController">
+
+      <nav>
+        <div class="nav-wrapper red darken-2">
+          <a class="brand-logo" ng-cloak>{{ name }}</a>
+          <a data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a class="waves-effect waves-light">Login</a></li>
+            <li><a class="waves-effect waves-light" ng-click="openRegisterModal()">Register</a></li>
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a class="waves-effect waves-light">Login</a></li>
+            <li><a class="waves-effect waves-light" ng-click="openRegisterModal()">Register</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Modal Structure -->
+      <div id="RegisterModal" class="modal">
+        <form ng-submit="submitRegister()">
+
+          <div class="modal-content grey-text text-darken-3">
+
+            <h4>Register</h4>
+
+            <div class="row">
+
+              <div class="col s12">
+
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="fullname" type="text" ng-model="register.fullname" pattern=".{3,100}" class="validate" required>
+                    <label for="fullname">Full Name</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="email" type="email" ng-model="register.email" class="validate" required>
+                    <label for="email">Email</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="password" type="password" ng-model="register.password" pattern=".{3,100}" class="validate" required>
+                    <label for="password">Password</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="confirm" type="password" ng-model="register.confirm" pattern=".{3,100}" class="validate" required>
+                    <label for="confirm">Confirm Password</label>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <button type="submit" class="modal-action waves-effect waves-green btn-flat">Agree</button>
+          </div>
+
+        </form>
       </div>
-    </nav>
+      <!-- END Modal Structure -->
+
+    </div>
+
+
 
     <div ui-view></div>
 

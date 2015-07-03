@@ -25,6 +25,7 @@
     "alert": false,
     /* jQuery+Angular */
     "$": false,
-    "angular": false
+    "angular": false,
+    "Materialize": false
   }
 }
