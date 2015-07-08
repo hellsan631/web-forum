@@ -77,8 +77,7 @@ angular
               $rootScope.currentUser = response;
             },
             function(error){
-              if(error.status !== 401)
-                Person.logout();
+              localStorage.clear();
             });
         }
 
