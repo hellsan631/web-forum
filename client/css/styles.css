@@ -6,13 +6,17 @@
   display: none !important;
 }
 
-.modal{
+.modal:not(.bottom-sheet){
   width:45%;
   max-width: 500px;
 }
 
+.redactor_editor{
+  min-height: 400px;
+}
+
 @media only screen and (max-width: 992px){
-  .modal {
+  .modal:not(.bottom-sheet) {
     width: 80%;
     max-width: none;
   }
