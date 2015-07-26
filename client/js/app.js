@@ -1,48 +1,52 @@
 angular
   .module("web-forum", [
-    'ui.router',
+    'ngRoute',
     'ngResource',
+    'ngSanitize',
     'lbServices',
     'angular-redactor'
   ])
   .config([
-    '$stateProvider',
-    '$urlRouterProvider',
+    '$routeProvider',
     AppConfig
   ])
   .controller('AppController', [
     '$scope',
     '$rootScope',
     'Person',
+    'LoopBackAuth',
     AppController
   ]);
 
-function AppConfig ($stateProvider, $urlRouterProvider) {
+function AppConfig ($routeProvider) {
 
-  $stateProvider
-    .state('topics', {
-      url: '/topics',
+  $routeProvider
+    .when('/topics', {
       templateUrl: 'views/topics.html',
       controller: 'TopicsController'
     })
-    .state('post', {
-      url: '/post/{id}',
+    .when('/post/:id', {
       templateUrl: 'views/post.html',
       controller: 'PostController'
     });
 
-  $urlRouterProvider.otherwise('topics');
+  $routeProvider
+    .otherwise({
+      redirectTo: '/topics'
+    });
 
 }
 
-function AppController($scope, $rootScope, Person){
+function AppController($scope, $rootScope, Person, LoopBackAuth){
   $(".button-collapse").sideNav();
   $('.modal-trigger').leanModal();
 
-  Person.getCurrent(function(response){
+  Person.getCurrent(
+    function(response){
       $rootScope.currentUser = response;
     },
     function(error){
-      localStorage.clear();
+      LoopBackAuth.clearStorage();
+      $rootScope.currentUser = null;
     });
 }

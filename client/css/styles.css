@@ -6,13 +6,9 @@
   display: none !important;
 }
 
-.modal:not(.bottom-sheet){
-  width:45%;
-  max-width: 500px;
-}
 
 .redactor_editor{
-  min-height: 400px;
+  min-height: 300px;
 }
 
 @media only screen and (max-width: 992px){

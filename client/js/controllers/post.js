@@ -1,14 +1,11 @@
 angular
   .module("web-forum")
-  .controller("PostController", ["$scope", "$stateParams", "Topic",
-    function($scope, $stateParams, Topic){
-
-
-
+  .controller("PostController", ["$scope", "$routeParams", "Topic",
+    function($scope, $routeParams, Topic){
 
       Topic.findById(
         {
-          id: $stateParams.id,
+          id: $routeParams.id,
           filter: {
             include: {posts: "person"}
           }

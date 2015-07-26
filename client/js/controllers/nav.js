@@ -12,8 +12,14 @@ function NavController($scope, $rootScope, Person, LoopBackAuth){
     $scope.name = "It Works!";
 
     $scope.logout = function(){
-      Person.logout();
-      $rootScope.currentUser = null;
+      Person.logout(function(res){
+        $rootScope.currentUser = null;
+      }, function(err){
+        console.log(err);
+        LoopBackAuth.clearStorage();
+        $rootScope.currentUser = null;
+      });
+
     };
 
     $scope.openLoginModal = function(){

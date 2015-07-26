@@ -1,9 +1,10 @@
 angular
   .module("web-forum")
-  .controller("TopicsController", ["$scope", "$rootScope", "$state", "Topic", "Post",
-    function($scope, $rootScope, $state, Topic, Post){
+  .controller("TopicsController", ["$scope", "$rootScope", "$route", "Topic", "Post",
+    function($scope, $rootScope, $route, Topic, Post){
 
         $scope.name = "Topics Controller";
+        var newTopicModal = $('#NewTopic');
 
         $scope.topics = [];
 
@@ -12,11 +13,11 @@ angular
         });
 
         $scope.goToPost = function(postId){
-          $state.go('post', {id: postId});
+          location.hash = '/post/' + postId;
         };
 
         $scope.openNewTopicModal = function(){
-          $('#NewTopic').openModal();
+          newTopicModal.openModal();
         };
 
         $scope.createNewTopic = function(){
@@ -25,12 +26,13 @@ angular
 
           Topic.create($scope.topic).$promise
             .then(function(result){
-              console.log(result);
+
+              newTopicModal.closeModal();
 
               $scope.post.topicId = result.id;
 
               Post.create($scope.post, function(res){
-                console.log(res);
+                $route.reload();
               });
             });
         };

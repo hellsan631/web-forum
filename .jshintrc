@@ -23,6 +23,7 @@
     "document": false,
     "navigator": false,
     "alert": false,
+    "location": false,
     /* jQuery+Angular */
     "$": false,
     "angular": false,

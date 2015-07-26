@@ -19,6 +19,10 @@
     "angular": "~1.4.1",
     "materialize": "~0.96.1",
     "angular-resource": "~1.4.1",
-    "angular-redactor": "~1.1.5"
+    "angular-redactor": "~1.1.5",
+    "angular-hero-ramjet": "~0.1.2",
+    "angular-route": "~1.4.3",
+    "angular-hero": "~0.0.7",
+    "angular-sanitize": "~1.4.3"
   }
 }
