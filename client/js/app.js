@@ -1,5 +1,6 @@
 angular
-  .module("web-forum", [
+  .module('web-forum', [
+    'ngAnimate',
     'ngRoute',
     'ngResource',
     'ngSanitize',
@@ -38,7 +39,7 @@ function AppConfig ($routeProvider) {
 }
 
 function AppController($scope, $rootScope, Person, LoopBackAuth){
-  $(".button-collapse").sideNav();
+  $('.button-collapse').sideNav();
   $('.modal-trigger').leanModal();
 
   Person.getCurrent(

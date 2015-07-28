@@ -1,40 +1,63 @@
 angular
-  .module("web-forum")
-  .controller("TopicsController", ["$scope", "$rootScope", "$route", "Topic", "Post",
-    function($scope, $rootScope, $route, Topic, Post){
+  .module('web-forum')
+  .controller('TopicsController', [
+    '$scope',
+    '$rootScope',
+    '$timeout',
+    '$route',
+    'Topic',
+    'Post',
+    TopicsController
+  ]);
 
-        $scope.name = "Topics Controller";
-        var newTopicModal = $('#NewTopic');
+function TopicsController($scope, $rootScope, $timeout, $route, Topic, Post){
 
-        $scope.topics = [];
+    $scope.name = 'Topics Controller';
+    var newTopicModal = $('#NewTopic');
 
-        Topic.find({filter: {include: "person"}}, function(result){
-          $scope.topics = result;
-        });
+    $scope.topics = [];
 
-        $scope.goToPost = function(postId){
-          location.hash = '/post/' + postId;
-        };
+    findTopics();
 
-        $scope.openNewTopicModal = function(){
-          newTopicModal.openModal();
-        };
+    $scope.goToPost = function(postId){
+      $timeout(function(){
+        location.hash = '#/post/' + postId;
+      });
+    };
 
-        $scope.createNewTopic = function(){
+    $scope.openNewTopicModal = function(){
+      newTopicModal.openModal();
+    };
 
-          $scope.topic.personId = $scope.post.personId = $rootScope.currentUser.id;
+    $scope.createNewTopic = function(){
 
-          Topic.create($scope.topic).$promise
-            .then(function(result){
+      $scope.topic.personId = $scope.post.personId = $rootScope.currentUser.id;
 
-              newTopicModal.closeModal();
+      createTopic($scope.topic)
+        .then(afterCreateTopic)
+        .then(findTopics);
+    };
 
-              $scope.post.topicId = result.id;
+    function findTopics(){
+      Topic.find({filter: {include: 'person'}}, function(result){
+        $scope.topics = result;
+      });
+    }
 
-              Post.create($scope.post, function(res){
-                $route.reload();
-              });
-            });
-        };
+    function createTopic(topic){
+      return Topic.create(topic).$promise;
+    }
 
-    }]);
+    function afterCreateTopic(result){
+      newTopicModal.closeModal();
+
+      $scope.post.topicId = result.id;
+
+      return createPost($scope.post);
+    }
+
+    function createPost(post){
+      return Post.create(post).$promise;
+    }
+
+}

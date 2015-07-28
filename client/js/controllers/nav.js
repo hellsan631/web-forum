@@ -1,25 +1,23 @@
 angular
-  .module("web-forum")
-  .controller("NavController", [
-    "$scope",
-    "$rootScope",
-    "Person",
+  .module('web-forum')
+  .controller('NavController', [
+    '$scope',
+    '$rootScope',
+    'Person',
     'LoopBackAuth',
     NavController
   ]);
 
 function NavController($scope, $rootScope, Person, LoopBackAuth){
-    $scope.name = "It Works!";
+    $scope.name = 'It Works!';
 
     $scope.logout = function(){
       Person.logout(function(res){
         $rootScope.currentUser = null;
       }, function(err){
-        console.log(err);
         LoopBackAuth.clearStorage();
         $rootScope.currentUser = null;
       });
-
     };
 
     $scope.openLoginModal = function(){
